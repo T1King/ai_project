@@ -1,0 +1,8 @@
+services:
+  dev:
+    image: nvidia/cuda:13.0.0-cudnn-devel-ubuntu24.04
+    volumes:
+      - ../rs2_ws:/docker_rs2_ws
+    working_dir: /docker_r2_ws
+    stdin_open: true
+    tty: true
