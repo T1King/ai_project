@@ -1,8 +1,12 @@
 services:
   dev:
     image: nvidia/cuda:13.0.0-cudnn-devel-ubuntu24.04
+    container_name: dev_rs2
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
-      - ../rs2_ws:/docker_rs2_ws
-    working_dir: /docker_r2_ws
+      - ${PROJECT_ROOT}/rs2_ws:/docker_rs2_ws
+    working_dir: /docker_rs2_ws
     stdin_open: true
     tty: true
