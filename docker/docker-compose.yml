@@ -1,6 +1,6 @@
 services:
   dev:
-    image: nvidia/cuda:13.0.0-cudnn-devel-ubuntu24.04
+    image: dev_rs2:rs2_v2
     container_name: dev_rs2
     runtime: nvidia
     environment:
