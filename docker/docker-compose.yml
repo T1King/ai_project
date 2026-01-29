@@ -5,20 +5,10 @@ services:
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - XAUTHORITY=/root/.Xauthority
-      - DISPLAY=${DISPLAY}
+      - DISPLAY=:0
       - QT_X11_NO_MITSHM=1
-      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - NVIDIA_DRIVER_CAPABILITIES=graphics,utility,compute
-
-      - __GLX_VENDOR_LIBRARY_NAME=nvidia
-      - LIBGL_ALWAYS_INDIRECT=1
-      - XDG_RUNTIME_DIR=/tmp/runtime-root
-      - LIBGL_DRI3_DISABLE=1
-      - XDG_RUNTIME_DIR=/tmp/runtime-root
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - /run/user/1000/gdm/Xauthority:/root/.Xauthority:ro
       - ${PROJECT_ROOT}/rs2_ws:/docker_rs2_ws
     working_dir: /docker_rs2_ws
 
