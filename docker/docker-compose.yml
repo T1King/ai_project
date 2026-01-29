@@ -5,8 +5,10 @@ services:
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - DISPLAY=:0
+      - DISPLAY=:1
       - QT_X11_NO_MITSHM=1
+      - MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
+      - XDG_RUNTIME_DIR=/tmp/runtime-root
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ${PROJECT_ROOT}/rs2_ws:/docker_rs2_ws
