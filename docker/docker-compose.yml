@@ -1,11 +1,12 @@
 services:
   dev:
+    build: .
     image: dev_rs2:rs2_v2
     container_name: dev_rs2
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
-      - DISPLAY=:1
+      - DISPLAY=:0
       - QT_X11_NO_MITSHM=1
       - MESA_LOADER_DRIVER_OVERRIDE=llvmpipe
       - XDG_RUNTIME_DIR=/tmp/runtime-root
