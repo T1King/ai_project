@@ -1,7 +1,26 @@
-FROM ubuntu:24.04
+FROM dev_rs2:rs2_v2 AS builder
 
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /docker_rs2_ws
+
+COPY rs2_ws/src/ /docker_rs2_ws/src/
+
+# 构建
+RUN source /opt/ros/jazzy/setup.bash && \
+    colcon build --merge-install
+
+FROM dev_rs2:rs2_v2
+SHELL ["/bin/bash", "-c"]
+
+WORKDIR /docker_rs2_ws
+# 只拷贝 install（精髓）
+COPY --from=builder /docker_rs2_ws/install /docker_rs2_ws/install
+
+# 自动 source
+RUN echo "source /docker_rs2_ws/install/setup.bash" >> /root/.bashrc
+
 
 # 1️⃣ 系统依赖（容器内部）
 RUN apt update && apt install -y \
@@ -26,5 +45,7 @@ ENV PATH="/opt/venv/bin:$PATH"
 # 5️⃣ 仅为交互体验（非必须）
 RUN echo "source /opt/venv/bin/activate" >> /root/.bashrc
 
-WORKDIR /workspace
 CMD ["bash"]
+
+
+RUN rm -rf /docker_rs2_ws/build  /docker_rs2_ws/log

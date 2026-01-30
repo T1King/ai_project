@@ -1,0 +1,23 @@
+# ROS2 colcon 生成目录
+build/
+install/
+log/
+
+# colcon cache
+.colcon/
+
+# Python
+__pycache__/
+*.pyc
+
+# Git
+.git/
+.gitignore
+
+# 编辑器
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
