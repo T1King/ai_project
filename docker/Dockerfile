@@ -2,15 +2,30 @@ FROM dev_rs2:rs2_v2 AS builder
 
 SHELL ["/bin/bash", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PYTHON_EXECUTABLE=/usr/bin/python3
+ENV PATH=/usr/bin:$PATH
+
+
+RUN apt-get update && apt-get install -y \
+    python3-catkin-pkg \
+    python3-colcon-common-extensions \
+ && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /docker_rs2_ws
 
 COPY rs2_ws/src/ /docker_rs2_ws/src/
 
+RUN which colcon && \
+    which python3 && \
+    python3 -c "import sys; print(sys.executable)"
+
+
+
 # 构建
 RUN source /opt/ros/jazzy/setup.bash && \
-    colcon build --merge-install
-
+#    colcon build --merge-install
+     colcon build --mixin --parallel-workers 8 --executor sequential
+#     colcon build --merge-install
 FROM dev_rs2:rs2_v2
 SHELL ["/bin/bash", "-c"]
 
