@@ -3,8 +3,8 @@ services:
     build:
         context: ../.
         dockerfile: docker/Dockerfile
-    image: dev_rs2:rs2_v2
-    container_name: dev_rs2
+    image: dev_rs2:rs2_v3
+    container_name: dev_rs3
     runtime: nvidia
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
